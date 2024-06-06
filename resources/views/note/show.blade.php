@@ -1,15 +1,20 @@
 <x-layout>
     <div class="note-container single-note">
         <div class="note-header">
-            <h1>Note: DATE_GOES_HERE</h1>
+            <h1>Note: {{ $note->created_at }}</h1>
             <div class="note-buttons">
-                <a href="#" class="note-edit-button">Edit</a>
-                <button class="note-delete-button">Delete</button>
+                <a href="{{ route('note.index') }}" class="note-cancel-button">Cancel</a>
+                <a href="{{ route('note.edit', $note) }}" class="note-edit-button">Edit</a>
+                <form action="{{ route('note.destroy', $note) }}" method="post">
+                    @csrf
+                    @method('DELETE')
+                    <button class="note-delete-button">Delete</button>
+                </form>
             </div>
-            <div class="note">
-                <div class="note-body">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita, adipisci repellat? Laborum tempora accusamus aperiam, commodi pariatur nobis asperiores deleniti doloribus quos unde architecto, nulla reprehenderit repudiandae est fuga assumenda.
-                </div>
+        </div>
+        <div class="note">
+            <div class="note-body">
+                {{ $note->note }}
             </div>
         </div>
     </div>
